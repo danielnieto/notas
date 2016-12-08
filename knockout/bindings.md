@@ -32,3 +32,11 @@ Puedes asignar estilos en linea basados en una condicion
 Para poner o quitar una clase
 
 `<div data-bind="css:{'clase-css': condicion === true}">`
+
+##Atributos
+
+Para asignar un atributo como `title` puedes usar 
+
+`<td data-bind="attr:{title: someProperty}"></td>`
+
+Tambien se puede usar para asignar el `href` de un `<a>`

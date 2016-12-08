@@ -40,3 +40,14 @@ Para asignar un atributo como `title` puedes usar
 `<td data-bind="attr:{title: someProperty}"></td>`
 
 Tambien se puede usar para asignar el `href` de un `<a>`
+
+##Subscripcion
+
+Te puede subscribir a un `observable` y cuando su valor cambia, se `notificara` a los subscriptores por medio de un callback:
+
+```
+	observable.subscribe(function(newValue){
+		console.log(newValue);
+	});
+
+```

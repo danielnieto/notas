@@ -41,6 +41,14 @@ Para asignar un atributo como `title` puedes usar
 
 Tambien se puede usar para asignar el `href` de un `<a>`
 
+Los binding `enable` y `disable` pueden habilitar o desabilitar un input element:
+
+`<input type="text" data-bind="enable: estaHabilitado">`
+
+De igual manera, se puede usar el binding `hasFocus` para asignar (o desasignar) el foco a un elemento
+
+`<input type="text" data-bind="hasFocus: tieneFoco">`
+
 ##Subscripcion
 
 Te puede subscribir a un `observable` y cuando su valor cambia, se `notificara` a los subscriptores por medio de un callback:

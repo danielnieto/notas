@@ -83,3 +83,39 @@ En cambio si el "primer" elemento (`a`) es mayor que el "segundo" (`b`), la func
 
 Si son iguales la funcion debera regresar `0`
 
+## Some
+
+Regresa `true` si al menos 1 elemento del arreglo cumple con la condicion, la condicion es un "callback":
+
+```
+//si alguna persona es mayor de 18 años
+var algunAdulto = personas.some(persona => new Date().getFullYear() - persona.ano >= 18);
+
+```
+
+## Every
+
+Muy similar a `some`. Regresa `true` si TODOS los elementos cumplen con la condicion.
+
+```
+//si alguna persona es mayor de 18 años
+var todosAdultos = personas.every(persona => new Date().getFullYear() - persona.ano >= 18);
+
+```
+
+## Find
+
+Regresa el primer elemento que cumple con la condicion, la condicion es un "callback":
+
+```
+	var comentario = comentarios.find(comentario => comentario.id === 823423); 
+```
+
+## FindIndex
+
+Regresa la posicion dentro del arreglo del primer elemento que cumpla con la condicion:
+
+```
+	var indice = comentarios.findIndex(comentario => comentario.id === 823423); 
+```
+

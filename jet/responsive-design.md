@@ -41,3 +41,19 @@ JET aplica el estilo del tamano especificado y tamanos mas grandes a menos que `
 - `oj-lg-hide` oculta contenido en pantallas `large` y `extra-large`
 - `oj-md-only-hide` oculta contenido **SOLO** en pantallas `medium`, no tiene efecto en otros tamaños.
 
+##Flex 
+Oracle JET tiene dos clases para hacer uso de Flexbox de CSS, `oj-flex` para el contenedor padre y `oj-flex-item` para los hijos:
+
+```html
+<div class="oj-flex">
+    <div class="oj-flex-item">1</div>
+    <div class="oj-flex-item">2</div>
+    <div class="oj-flex-item">3</div>
+    <div class="oj-flex-item">4</div>
+    <div class="oj-flex-item">5</div>
+</div>
+```
+
+Normalmente JET usa la propiedad `flex` con su valor en `auto`, que permite a los elementos crecer y encogerse, sin embargo, la propiedad de CSS nativo original tiene un valor de `initial`, el cual permite a un elemento encogerse, pero no crecer.
+
+Para poder usar flex de esta manera, se pueden utilizar dos clases mas, `oj-sm-flex-items-initial` para el contenedor (se le aplica a todos los hijos) o agregar `oj-sm-flex-initial` a un hijo

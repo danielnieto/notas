@@ -62,4 +62,45 @@ Para poder usar flex de esta manera, se pueden utilizar dos clases mas, `oj-sm-f
 - `oj-flex-items-pad`: agrega padding horizontal(10px) a los flex items
 -  `oj-size-flex-items-1` : donde size es (sm, md, lg, xl), asigna la propiedad `flex:1` de todos los items hijos de un contenedor.
 -  `oj-size-flex-1`: asigna la propiedad `flex: 1` a este item.
--  `oj-size-flex-nowrap`: asigna la propiedad `flex-wrap: nowrap`
+-  `oj-size-flex-nowrap`: asigna la propiedad `flex-wrap: nowrap`, (por defecto, JET usa `flex-wrap: wrap` para todos los `oj-flex`)
+
+##Grid
+
+JET usa un sistema similar a bootstrap con 12 columnas, la manera de asignar tamanos a elementos es por medio de 
+
+`oj-size-columns`
+
+Por ejemplo, un layout podria ser
+
+```html
+<div class="oj-flex">	<div class="oj-md-6 oj-lg-2 oj-xl-8 oj-flex-item">A</div>
+	<div class="oj-md-3 oj-lg-4 oj-xl-2 oj-flex-item">B</div>
+	<div class="oj-md-3 oj-lg-6 oj-xl-2 oj-flex-item">C</div></div>
+```
+El container debe ser un `oj-flex`
+
+### Clases de Conveniencia
+
+- `oj-size-odd-cols-numberofcolumns`: En lugar de asignar una clase a cada item, puedes asignar esta clase al padre, de tal manera que todas los elementos de las columnas **impar** tomaran `numberofcolumns` columnas por ejemplo:
+
+```html
+<div class="oj-md-odd-cols-4">
+    <div class="oj-flex">
+        <div class="oj-flex-item">col 1</div>
+        <div class="oj-flex-item">col 2</div>
+    </div>
+    <div class="oj-flex">
+        <div class="oj-flex-item">col 1</div>
+        <div class="oj-flex-item">col 2</div>
+    </div>
+    <div class="oj-flex">
+        <div class="oj-flex-item">col 1</div>
+        <div class="oj-flex-item">col 2</div>
+    </div>
+</div>
+```
+Solo la primer columna tomara 4 espacios, la segunda tomara el restante
+
+- `oj-size-even-cols-numberofcolumns`: Lo mismo que el anterior pero esta sirve para asignar el ancho de las columnas **pares**
+
+Se pueden (deberian) utilizar ambas clases en un mismo contenedor para controlar el tamano de cada una de las columnas (par e impar)

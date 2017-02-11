@@ -104,3 +104,26 @@ Solo la primer columna tomara 4 espacios, la segunda tomara el restante
 - `oj-size-even-cols-numberofcolumns`: Lo mismo que el anterior pero esta sirve para asignar el ancho de las columnas **pares**
 
 Se pueden (deberian) utilizar ambas clases en un mismo contenedor para controlar el tamano de cada una de las columnas (par e impar)
+
+##Layout Responsivo
+
+Utiliza las siguientes clases para hacer apps responsivas
+
+- `oj-hybrid-applayout-*`
+- `oj-web-applayout-*`
+
+##Forms
+
+- `oj-form`: Se pone en el padre de los controles del form para darle espacio entre controles
+
+- `oj-form-control-group`: agrupa controles y les da espacio con otros grupos
+
+- `oj-form-cols` y `oj-form-cols-labels-inline`: controla el layout de los controles dependiendo del tamaño de la pantalla. (ver usos en [cookbook](http://www.oracle.com/webfolder/technetwork/jet/jetCookbook.html?component=forms&demo=formvertical))
+
+- `oj-size-label-inline`: muestra el label inline.
+
+- `oj-size-labels-inline`: muestra todos los labels inline, se pone en el parent
+
+- `oj-size-label-nowrap`: `nowrap` en el label, el texto se trunca si es muy grande.
+
+- `oj-size-labels-nowrap`:`nowrap` en todos los labels, el texto se trunca si es muy grande, se pone en el parent.

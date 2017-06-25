@@ -1,5 +1,16 @@
 # RxJS
 
+### subscribe 
+
+Tiene 3 parametros, 
+- onValue: la funcion que se se ejecuta con cada nuevo valor
+- onError: la funcion que se ejecuta cuando hay un error en el stream
+- onFinish: la funcion que se ejecuta cuando el stream termina
+
+```
+	stream.subscribe(onValue, onError, onFinish)
+```
+
 ### take
 Toma solo los primeros 'n' valores de un stream.
 

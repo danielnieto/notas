@@ -1,5 +1,55 @@
 # RxJS
 
+### Observable
+
+Se crea por medio Rx.Observable.create() y toma 1 funcion como parametro, que es la que se va a ejecutar cuando alguien se suscriba al Observable.
+
+Por ejemplo, emite un 'hi' cada segundo: 
+
+```javascript
+
+	var observable = Rx.Observable.create(function subscribe(observer) {
+	  var id = setInterval(() => {
+	    observer.next('hi')
+	  }, 1000);
+});
+
+```
+
+Cada "subscriptor" obtiene una "instancia" nueva del Observable, o sea, al subscribirse se ejecuta la funcion "subscribe", de tal forma que los subscriptores **NO** comparten el observable.
+
+### Cancelar Subscripcion
+
+La subscripcion se puede cancel al llamar al metodo `unsubscribe` de la subscripcion
+
+```javascript
+
+var observable = Rx.Observable.from([10, 20, 30]);
+var subscription = observable.subscribe(x => console.log(x));
+...
+subscription.unsubscribe();
+
+```
+
+Se puede personalizar el comportamiento de la 'desubscripcion' regresando una funcion al momento de crear el Observable, por ejemplo, para cancelar timers, o liberar variables o recursos, se hace de la siguiente manera
+
+```javascript
+
+var observable = Rx.Observable.create(function subscribe(observer) {
+  // Keep track of the interval resource
+  var intervalID = setInterval(() => {
+    observer.next('hi');
+  }, 1000);
+
+  // Provide a way of canceling and disposing the interval resource
+  return function unsubscribe() {
+    clearInterval(intervalID);
+  };
+});
+
+
+```
+
 ### subscribe 
 
 Tiene 3 parametros, 

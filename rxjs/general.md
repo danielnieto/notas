@@ -1,5 +1,7 @@
 # RxJS
 
+## Generalidades
+
 ### Observable
 
 Se crea por medio Rx.Observable.create() y toma 1 funcion como parametro, que es la que se va a ejecutar cuando alguien se suscriba al Observable.
@@ -49,6 +51,36 @@ var observable = Rx.Observable.create(function subscribe(observer) {
 
 
 ```
+
+### Observer
+Un objeto `observer` es el consumidor de los "valores" emitidos por un `Observable`. Son simplemente un set de callbacks, uno por cada tipo de notificacion (`next`,`error`, `complete`) que manda el Observable. Ejemplo de un Objeto Observer
+
+```javascript
+
+var observer = {
+  next: x => console.log('Observer got a next value: ' + x),
+  error: err => console.error('Observer got an error: ' + err),
+  complete: () => console.log('Observer got a complete notification'),
+};
+
+```
+
+Para usar el `Observer` se pasa a la funcion de subscribe
+
+```
+observable.subscribe(observer);
+```
+
+Si no se usa un objeto `Observer` para la funcion `subscribe`, esta lo crea automaticamente tomando los parametros de la funcion como los valores del objeto.
+
+```
+observable.subscribe(
+	x => console.log('Observer got a next value: ' + x),
+	err => console.error('Observer got an error: ' + err),	() => console.log('Observer got a complete notification')
+);
+```
+
+## Metodos
 
 ### subscribe 
 

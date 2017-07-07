@@ -121,3 +121,53 @@ Runner.propTypes = {
 Si se usa `.isRequired` al final del propType, esto le indica a React que ese `prop` DEBE ser provista.
 
 - NUNCA cambiar el valor de props
+
+## States
+Los `states` son valores que se generan dentro del componente (a diferencia de los `props`) y pueden ser cambiantes, se definen en el constructor
+
+```javascript
+class Toggle extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {color: 'green'}
+  }
+  
+  render() {
+    return (
+      <div>
+        Color is: {this.status.color}
+      </div>
+    );
+  }
+```
+Los `states` se cambian usando la funcion `this.setState` y pasando un objeto con todas las nuevas propiedades que se van a "mergear" con el objeto `this.state` actual.
+
+**NO se puede llamar `this.setState` dentro de la funcion `render`**
+
+Ejemplo de uso de states:
+
+```javascript
+class Clicks extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {clicks: 0}
+    this.handleClick = this.handleClick.bind(this);
+  }
+  
+  handleClick(){
+  	this.setState({
+		clicks: ++this.state.clicks  	
+	})
+  }
+  
+  render() {
+    return (
+      <div>
+		Times clicked: {this.state.clicks}
+        <button onClick={this.handleClick}>Click me</button>
+      </div>
+    );
+  }
+}
+```
+

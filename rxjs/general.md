@@ -80,6 +80,41 @@ observable.subscribe(
 );
 ```
 
+### Subscription
+
+Es un objeto que representa un recurso "desechable", como la ejecucion de un observable. Una subscripcion tiene un metodo importante `unsubscribe` que no tiene argumentos y solamente desecha los recursos de la subscripcion. 
+
+```javascript
+
+var observable = Rx.Observable.interval(1000);
+var subscription = observable.subscribe(x => console.log(x));
+// Later:
+// This cancels the ongoing Observable execution which
+// was started by calling subscribe with an Observer.
+subscription.unsubscribe();
+
+```
+Se puede hacer que al cancelar una subscripcion, se cancelen mas automaticamente, "agregando" subscripciones "hijas" a otras, ejemplo:
+
+```javascript
+
+var observable1 = Rx.Observable.interval(400);
+var observable2 = Rx.Observable.interval(300);
+
+var subscription = observable1.subscribe(x => console.log('first: ' + x));
+var childSubscription = observable2.subscribe(x => console.log('second: ' + x));
+
+subscription.add(childSubscription);
+
+setTimeout(() => {
+  // Unsubscribes BOTH subscription and childSubscription
+  subscription.unsubscribe();
+}, 1000);
+
+```
+
+Para eliminar una subscripcion "hija" se usa `subscription.remove(otherSubscription)`
+
 ## Metodos
 
 ### subscribe 

@@ -115,6 +115,41 @@ setTimeout(() => {
 
 Para eliminar una subscripcion "hija" se usa `subscription.remove(otherSubscription)`
 
+### Subject
+
+Un `Subject` es un tipo especial de `observable` que permite valores ser enviados a muchos `Observers`, mientras que un `observable` normal son unicast (o sea que cada Observer suscrito es dueño de una ejecucion independiente del observable).
+
+__Todo `Subject` es un `Observable`__, se puede subscribir con un `Observer` y este comenzara a recibir los valores normalmente, no hay forma de saber desde el punto de vista del Observer, si los valores provienen de un subject, o de un observable "normal".
+
+__Todo `Subject` es un `Observer`__, por lo tanto tiene los metodos `next`, `error` y `complete`, se puede usar el metodo `.next` para emitir un valor a todos los observers subscritos.
+
+```javascript
+
+	var subject = new Rx.Subject();
+
+	subject.subscribe({
+	  next: (v) => console.log('observerA: ' + v)
+	});
+	subject.subscribe({
+	  next: (v) => console.log('observerB: ' + v)
+	});
+	
+	subject.next(1);
+	subject.next(2);
+
+```
+
+imprime
+
+```
+observerA: 1
+observerB: 1
+observerA: 2
+observerB: 2
+
+```
+
+
 ## Metodos
 
 ### subscribe 

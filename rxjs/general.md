@@ -1,5 +1,15 @@
 # RxJS
 
+## Definiciones
+
+- **Observable**: representa la idea de valores invocables futuros o eventos
+- **Observer**: es una coleccion de callbacks que saben como "escuchar' valores entregados por el `Observable`
+- **Subscription**: representa la ejecucion de un `Observable`, primordialmente se usa para cancelar su ejecucion
+- **Operators**: son funciones puras que permiten un estilo de programacion funcional para manejar colecciones como `map`, `filter`, `concat`, `flatMap`, etc.
+- **Subject**: es el equivalente a un `EventEmitter`, y la unica manera de enviar valores a multiples `Observers`
+- **Schedulers**: son despachadores centralizados de control de concurrencia, que permiten coordinar cuando ocurre la "computacion", por ejemplo `setTimeout` o `requestAnimationFrame`.
+
+
 ## Generalidades
 
 ### Observable

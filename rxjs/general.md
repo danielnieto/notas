@@ -159,6 +159,123 @@ observerB: 2
 
 ```
 
+Se puede usar un `subject` para poder hacer broadcasting de un `observable` de la siguiente manera
+
+```javascript
+
+var subject = new Rx.Subject();
+
+subject.subscribe({
+  next: (v) => console.log('observerA: ' + v)
+});
+subject.subscribe({
+  next: (v) => console.log('observerB: ' + v)
+});
+
+var observable = Rx.Observable.from([1, 2, 3]);
+
+observable.subscribe(subject); // You can subscribe providing a Subject
+
+```
+
+y tiene el siguiente resultado
+
+```
+observerA: 1
+observerB: 1
+observerA: 2
+observerB: 2
+observerA: 3
+observerB: 3
+
+```
+
+### Multicasted Observables
+
+Los `observables "multicasted"` pasan las notificaciones por un `subject` que puede tener muchos suscriptores, a diferencia de los `observables "unicast"` que solo envian notificaciones a un solo `observer`
+
+Un `observable "multicasted"` usa un `subject` internamente para hacer que varios `observers` compartan la misma ejecucion del `observable`
+
+Internamente, de esta manera es como el operador `multicast` funciona: los `observers` se suscriben al `subject` interno, y ese `subject` se suscribe al `observable` fuente.
+
+```javascript
+
+var source = Rx.Observable.from([1, 2, 3]);
+var subject = new Rx.Subject();
+var multicasted = source.multicast(subject);
+	
+// These are, under the hood, `subject.subscribe({...})`:
+multicasted.subscribe({
+  next: (v) => console.log('observerA: ' + v)
+});
+multicasted.subscribe({
+  next: (v) => console.log('observerB: ' + v)
+});
+	
+// This is, under the hood, `source.subscribe(subject)`:
+multicasted.connect();
+
+```
+
+El metodo `connect()` del objeto `multicasted` ejecuta el `observable` y regresa una subscripcion
+
+### Conteo de Referencias
+
+Para evitar llamar `connect()` y manejar la subscripcion manualmente, podemos usar el metodo `refCount()`, el cual regresa un `observable` que mantiene cuantos suscriptores tiene, cuando el numero de suscriptores incrementa de 0 a 1, llama el metodo `connect()`, que inicia la ejecucion compartida, solo cuando el numero de suscriptores baja de 1 a 0 se va a cancelar la suscripcion.
+
+En pocas palabras, `refCount` hace que el `observable "multiscast"` automaticamente comience su ejecucion cuando ocurre la primera subscripcion, y para la ejecucion cuando la ultima subscripcion se cancela.
+
+Ejemplo:
+
+```javascript
+
+var source = Rx.Observable.interval(500);
+var subject = new Rx.Subject();
+var refCounted = source.multicast(subject).refCount();
+var subscription1, subscription2, subscriptionConnect;
+
+// This calls `connect()`, because
+// it is the first subscriber to `refCounted`
+console.log('observerA subscribed');
+subscription1 = refCounted.subscribe({
+  next: (v) => console.log('observerA: ' + v)
+});
+
+setTimeout(() => {
+  console.log('observerB subscribed');
+  subscription2 = refCounted.subscribe({
+    next: (v) => console.log('observerB: ' + v)
+  });
+}, 600);
+
+setTimeout(() => {
+  console.log('observerA unsubscribed');
+  subscription1.unsubscribe();
+}, 1200);
+
+// This is when the shared Observable execution will stop, because
+// `refCounted` would have no more subscribers after this
+setTimeout(() => {
+  console.log('observerB unsubscribed');
+  subscription2.unsubscribe();
+}, 2000);
+
+
+```
+Y tiene como resultado:
+
+```
+observerA subscribed
+observerA: 0
+observerB subscribed
+observerA: 1
+observerB: 1
+observerA unsubscribed
+observerB: 2
+observerB unsubscribed
+
+```
+
 
 ## Metodos
 
